@@ -6,6 +6,14 @@ This project is a small extracted version of the main bot. It has no database, n
 
 Created by **ɖαʀƙ**.
 
+## Platform
+
+This bot is built for VibesChat.
+
+Website: https://viberschat.space
+
+WebSocket: `wss://viberschat.space:8443`
+
 ## Features
 
 - Connects to the websocket server.
