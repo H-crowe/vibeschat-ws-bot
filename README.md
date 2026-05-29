@@ -42,6 +42,8 @@ vibeschat-ws-bot/
 
 ## Setup
 
+Node.js 18+ recommended.
+
 Install dependencies:
 
 ```bash
