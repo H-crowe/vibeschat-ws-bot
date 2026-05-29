@@ -21,6 +21,7 @@ WebSocket: `wss://viberschat.space:8443`
 - Marks private messages as `seen`.
 - Accepts incoming friend requests automatically.
 - Joins rooms with the private command `.join room_name`.
+- Handles simple room game commands.
 - Saves joined rooms in `data/rooms.json`.
 - Auto-joins saved rooms when the bot starts.
 - Rejoins a room automatically after being kicked.
@@ -37,6 +38,7 @@ vibeschat-ws-bot/
   config.json           Bot account and websocket server config
   index.js              Websocket connection, login, ping, and message routing
   pvt_handler.js        Private commands, seen status, and friend requests
+  games_handler.js      Simple room commands and test attachments
   room_handler.js       Room join, saved rooms, presence, and rejoin logic
   logger.js             Console and file logger
   package.json
@@ -86,6 +88,22 @@ Example:
 
 The bot will try to join the room. If the join succeeds, the room name is saved to `data/rooms.json`.
 
+## Room Commands
+
+Send these commands inside a room where the bot is active:
+
+```text
+.s
+```
+
+Replies with a simple text message.
+
+```text
+.pic
+```
+
+Replies with a text message and a test image attachment.
+
 ## Friend Requests
 
 Friend request logic is inside `pvt_handler.js`.
@@ -126,6 +144,7 @@ Example log line:
 
 - Created by ɖαʀƙ.
 - Private command and friend request logic lives in `pvt_handler.js`.
+- Room command examples live in `games_handler.js`.
 - Room logic lives in `room_handler.js`.
 - Runtime data lives in `data/`.
 - Runtime logs live in `logs/`.

@@ -2,6 +2,7 @@ const WebSocket = require('ws');
 const config = require('./config.json');
 const pvtHandler = require('./pvt_handler');
 const roomHandler = require('./room_handler');
+const gamesHandler = require('./games_handler');
 const { log } = require('./logger');
 
 let ws = null;
@@ -162,6 +163,11 @@ function handleMessage(message) {
     return;
   }
 
+  if (message.handler === 'room_msg') {
+    gamesHandler.handleRoomMessage(message, userInfo?.username);
+    return;
+  }
+
   if (message.handler === 'room_kicked') {
     roomHandler.handleRoomKicked(message);
   }
@@ -188,6 +194,11 @@ roomHandler.setRoomHandlers({
 });
 
 pvtHandler.setPvtHandlers({
+  sendMessage,
+  log
+});
+
+gamesHandler.setGamesHandlers({
   sendMessage,
   log
 });
