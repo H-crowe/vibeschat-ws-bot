@@ -1,7 +1,7 @@
 let sendMessageFunc = null;
 let logFunc = null;
 
-const PIC_URL = 'https://picsum.photos/800/500';
+const PIC_URL = 'https://hagleysbeauty.com/wp-content/uploads/2023/03/test-button-1-600x600.jpg';
 
 function log(scope, message) {
   if (typeof logFunc === 'function') {
