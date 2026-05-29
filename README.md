@@ -4,8 +4,6 @@ Minimal VibesChat websocket bot for testing connection, private commands, friend
 
 This project is a small extracted version of the main bot. It has no database, no games, no music, and no extra services. It only keeps the core websocket flow easy to read and test.
 
-Created by **ɖαʀƙ**.
-
 ## Platform
 
 This bot is built for VibesChat.
