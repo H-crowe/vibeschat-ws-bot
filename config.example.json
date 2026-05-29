@@ -1,0 +1,6 @@
+{
+  "server_url": "wss://viberschat.space:8443",
+  "username": "BOT_USERNAME",
+  "password": "BOT_PASSWORD",
+  "api_key": "BOT_API_KEY"
+}
