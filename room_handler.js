@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { log: fallbackLog } = require('./logger');
+const { GAME_COMMANDS } = require('./games_handler');
 
 let sendMessageFunc = null;
 let sendPrivateMessageFunc = null;
@@ -107,6 +108,45 @@ function sendPrivateMessage(toUsername, body) {
   if (typeof sendPrivateMessageFunc === 'function') {
     sendPrivateMessageFunc(toUsername, body);
   }
+}
+
+function sendRoomMsg(roomName, body, attachments = []) {
+  if (!sendMessageFunc || !roomName) return false;
+
+  return sendMessageFunc({
+    handler: 'room_msg',
+    payload: {
+      room_name: roomName,
+      body,
+      attachments
+    }
+  });
+}
+
+function getMessageRoomName(message) {
+  return (
+    message.room ||
+    message.room_name ||
+    message.roomname ||
+    message.message?.room ||
+    message.message?.room_name ||
+    message.payload?.room_name ||
+    ''
+  );
+}
+
+function getMessageSender(message) {
+  return (
+    message.message?.sender ||
+    message.message?.from_username ||
+    message.sender ||
+    message.from_username ||
+    ''
+  );
+}
+
+function getMessageBody(message) {
+  return String(message.message?.body || message.body || '').trim();
 }
 
 function addActiveRoom(roomName) {
@@ -253,6 +293,28 @@ function handlePresence(message, botUsername) {
   }
 }
 
+function handleRoomMessage(message, botUsername) {
+  if (message.handler !== 'room_msg' || message.status !== 'success') return false;
+
+  const roomName = getMessageRoomName(message);
+  const sender = getMessageSender(message);
+  const body = getMessageBody(message);
+
+  if (!roomName || !body) return false;
+  if (sender && sender === botUsername) return false;
+
+  if (body.toLowerCase() !== '.help') return false;
+
+  const helpMessage = [
+    'Room commands:',
+    ...GAME_COMMANDS
+  ].join('\n');
+
+  log('ROOM', `.help command in room "${roomName}" by ${sender || 'unknown'}`);
+  sendRoomMsg(roomName, helpMessage);
+  return true;
+}
+
 function scheduleRejoin(roomName) {
   const cleanRoomName = getWantedRoomName(roomName);
   const key = getRoomKey(cleanRoomName);
@@ -284,5 +346,6 @@ module.exports = {
   joinSavedRooms,
   handleJoinRoomResponse,
   handlePresence,
+  handleRoomMessage,
   handleRoomKicked
 };

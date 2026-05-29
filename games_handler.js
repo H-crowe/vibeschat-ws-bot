@@ -2,6 +2,10 @@ let sendMessageFunc = null;
 let logFunc = null;
 
 const PIC_URL = 'https://hagleysbeauty.com/wp-content/uploads/2023/03/test-button-1-600x600.jpg';
+const GAME_COMMANDS = [
+  '.s - test text reply',
+  '.pic - test image attachment'
+];
 
 function log(scope, message) {
   if (typeof logFunc === 'function') {
@@ -79,5 +83,6 @@ function handleRoomMessage(message, botUsername) {
 
 module.exports = {
   setGamesHandlers,
-  handleRoomMessage
+  handleRoomMessage,
+  GAME_COMMANDS
 };

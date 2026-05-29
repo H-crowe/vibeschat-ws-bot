@@ -93,6 +93,12 @@ The bot will try to join the room. If the join succeeds, the room name is saved 
 Send these commands inside a room where the bot is active:
 
 ```text
+.help
+```
+
+Replies with the room command list.
+
+```text
 .s
 ```
 

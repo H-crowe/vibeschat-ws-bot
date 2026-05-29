@@ -164,6 +164,10 @@ function handleMessage(message) {
   }
 
   if (message.handler === 'room_msg') {
+    if (roomHandler.handleRoomMessage(message, userInfo?.username)) {
+      return;
+    }
+
     gamesHandler.handleRoomMessage(message, userInfo?.username);
     return;
   }
