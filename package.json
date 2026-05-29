@@ -1,5 +1,5 @@
 {
-  "name": "bot-test",
+  "name": "vibeschat-ws-bot",
   "version": "1.0.0",
   "description": "Minimal Vibers websocket bot for joining rooms from private commands.",
   "main": "index.js",
