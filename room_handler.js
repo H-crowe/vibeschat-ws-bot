@@ -113,9 +113,13 @@ function addActiveRoom(roomName) {
   const cleanRoomName = normalizeRoomName(roomName);
   if (!cleanRoomName) return;
 
+  const wasAlreadyActive = isBotInRoom(cleanRoomName);
   activeRooms.add(cleanRoomName);
   wantedRooms.add(cleanRoomName);
-  log('ROOM', `Added active room "${cleanRoomName}". Active rooms: ${activeRooms.size}`);
+
+  if (!wasAlreadyActive) {
+    log('ROOM', `Added active room "${cleanRoomName}". Active rooms: ${activeRooms.size}`);
+  }
 }
 
 function removeActiveRoom(roomName) {
