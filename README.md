@@ -1,6 +1,6 @@
-# bot-test
+# vibeschat-ws-bot
 
-Minimal Vibers websocket bot for testing connection, private commands, friend requests, and room joining.
+Minimal VibesChat websocket bot for testing connection, private commands, friend requests, and room joining.
 
 This project is a small extracted version of the main bot. It has no database, no games, no music, and no extra services. It only keeps the core websocket flow easy to read and test.
 
@@ -23,7 +23,7 @@ Created by **Dark**.
 ## Project Structure
 
 ```text
-bot-test/
+vibeschat-ws-bot/
   data/
     rooms.json          Saved rooms list
   logs/

@@ -1,7 +1,7 @@
 {
   "name": "vibeschat-ws-bot",
   "version": "1.0.0",
-  "description": "Minimal Vibers websocket bot for joining rooms from private commands.",
+  "description": "Minimal VibesChat websocket bot for joining rooms from private commands.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"

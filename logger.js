@@ -20,8 +20,8 @@ function log(scope, message) {
   try {
     ensureLogDir();
     fs.appendFileSync(LOG_FILE, `${line}\n`, 'utf8');
-  } catch (err) {
-    console.error(formatLine('ERROR', `Failed to write bot.log: ${err.message}`));
+  } catch {
+    // Keep the bot silent if log writing fails.
   }
 }
 
