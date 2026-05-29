@@ -4,7 +4,7 @@ Minimal VibesChat websocket bot for testing connection, private commands, friend
 
 This project is a small extracted version of the main bot. It has no database, no games, no music, and no extra services. It only keeps the core websocket flow easy to read and test.
 
-Created by **Dark**.
+Created by **ɖαʀƙ**.
 
 ## Features
 
@@ -118,7 +118,7 @@ Example log line:
 
 ## Notes
 
-- Created by Dark.
+- Created by ɖαʀƙ.
 - Private command and friend request logic lives in `pvt_handler.js`.
 - Room logic lives in `room_handler.js`.
 - Runtime data lives in `data/`.
