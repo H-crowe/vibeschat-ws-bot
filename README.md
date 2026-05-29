@@ -1,47 +1,42 @@
 # vibeschat-ws-bot
 
-Minimal VibesChat websocket bot for testing connection, private commands, friend requests, and room joining.
-
-This project is a small extracted version of the main bot. It has no database, no games, no music, and no extra services. It only keeps the core websocket flow easy to read and test.
+Minimal WebSocket bot for VibesChat. It is designed as a clean starter project for testing login, private commands, room joining, room commands, friend requests, and basic attachments.
 
 ## Platform
 
-This bot is built for VibesChat.
-
-Website: https://viberschat.space
-
-WebSocket: `wss://viberschat.space:8443`
+- Website: https://viberschat.space
+- WebSocket: `wss://viberschat.space:8443`
 
 ## Features
 
-- Connects to the websocket server.
-- Logs in with `3rd_login`.
-- Sends `ping` every 15 seconds to keep the socket alive.
-- Handles private messages.
-- Marks private messages as `seen`.
-- Accepts incoming friend requests automatically.
-- Joins rooms with the private command `.join room_name`.
-- Handles simple room game commands.
-- Saves joined rooms in `data/rooms.json`.
-- Auto-joins saved rooms when the bot starts.
-- Rejoins a room automatically after being kicked.
-- Writes logs to `logs/bot.log`.
+- WebSocket connection and `3rd_login` authentication.
+- Keep-alive ping every 15 seconds.
+- Private message handling with `seen` status.
+- Automatic friend request acceptance.
+- Private `.join room_name` command.
+- Saved room auto-join from `data/rooms.json`.
+- Automatic rejoin after room kick.
+- Room `.help`, `.s`, and `.pic` commands.
+- File-only logging in `logs/bot.log`.
 
 ## Project Structure
 
 ```text
 vibeschat-ws-bot/
   data/
-    rooms.json          Saved rooms list
+    rooms.json             Saved rooms list
   logs/
-    bot.log             Runtime log file, created automatically
-  config.json           Bot account and websocket server config
-  index.js              Websocket connection, login, ping, and message routing
-  pvt_handler.js        Private commands, seen status, and friend requests
-  games_handler.js      Simple room commands and test attachments
-  room_handler.js       Room join, saved rooms, presence, and rejoin logic
-  logger.js             Console and file logger
+    .gitkeep               Keeps the logs directory in git
+    bot.log                Runtime log file, ignored by git
+  config.example.json      Example config for GitHub
+  config.json              Local bot credentials, ignored by git
+  index.js                 WebSocket connection, login, ping, and routing
+  pvt_handler.js           Private commands, seen status, and friend requests
+  room_handler.js          Room join, saved rooms, presence, help, and rejoin
+  games_handler.js         Example room commands and image attachment
+  logger.js                File logger
   package.json
+  package-lock.json
   README.md
 ```
 
@@ -53,7 +48,7 @@ Install dependencies:
 npm install
 ```
 
-Create `config.json` from `config.example.json`, then add the bot account details:
+Create `config.json` from `config.example.json`:
 
 ```json
 {
@@ -72,57 +67,31 @@ Start the bot:
 npm start
 ```
 
-## Private Commands
+## Commands
 
-Send the bot a private message:
+Private commands:
 
 ```text
 .join room_name
 ```
 
-Example:
+The bot joins the room and saves it to `data/rooms.json` after a successful join.
 
-```text
-.join null
-```
-
-The bot will try to join the room. If the join succeeds, the room name is saved to `data/rooms.json`.
-
-## Room Commands
-
-Send these commands inside a room where the bot is active:
+Room commands:
 
 ```text
 .help
-```
-
-Replies with the room command list.
-
-```text
 .s
-```
-
-Replies with a simple text message.
-
-```text
 .pic
 ```
 
-Replies with a text message and a test image attachment.
+- `.help` shows the available room commands.
+- `.s` sends a simple test reply.
+- `.pic` sends a text reply with a test image attachment.
 
-## Friend Requests
+## Runtime Data
 
-Friend request logic is inside `pvt_handler.js`.
-
-The bot:
-
-- Checks pending friend requests after login.
-- Rechecks pending friend requests every minute.
-- Accepts live `friend_request` notifications immediately.
-
-## Saved Rooms
-
-Saved rooms are stored as a JSON array:
+Saved rooms are stored in `data/rooms.json`:
 
 ```json
 [
@@ -130,17 +99,17 @@ Saved rooms are stored as a JSON array:
 ]
 ```
 
-When the bot starts, it reads `data/rooms.json` and joins every saved room automatically.
+When the bot starts, it joins all saved rooms automatically.
 
 ## Logs
 
-All logs are written to:
+Logs are written only to:
 
 ```text
 logs/bot.log
 ```
 
-Example log line:
+Example:
 
 ```text
 [2026-05-29T00:04:34.425Z] [AUTH] Logged in as coin
@@ -149,9 +118,5 @@ Example log line:
 ## Notes
 
 - Created by ɖαʀƙ.
-- Private command and friend request logic lives in `pvt_handler.js`.
-- Room command examples live in `games_handler.js`.
-- Room logic lives in `room_handler.js`.
-- Runtime data lives in `data/`.
-- Runtime logs live in `logs/`.
-- `config.json` contains account credentials, so do not commit real production credentials to a public repository.
+- `config.json`, `node_modules/`, and runtime log files are ignored by git.
+- This project intentionally avoids database, full game systems, music, and external services so the core WebSocket flow stays easy to study.
